@@ -17,9 +17,9 @@ while True:
                 vk.method("messages.send", {"peer_id": id, "message": "Привет!", "random_id": 123456})
             elif body.lower() == "Пока":
                 vk.method("messages.send", {"peer_id": id, "message": "Пока(", "random_id": 123456})
+            elif body.lower() == "Погода":
+                vk.method("messages.send", {"peer_id": id, "message": "Пока не реализовано", "random_id": 123456})
             else:
                 vk.method("messages.send", {"peer_id": id, "message": "Не понял тебя", "random_id": 123456})
-        elif body.lower() == "Погода":
-            vk.method("messages.send", {"peer_id": id, "message": "Не понял тебя", "random_id": 123456})
     except Exception as E:
         time.sleep(1)
