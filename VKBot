@@ -1,5 +1,8 @@
 import vk_api
 import time
+import random
+def get_random_id():
+    return random.getrandbits(31) * random.choice([-1, 1])
 
 token = "62013595f6323b4fb6120033fd2bd8b69ade4977af312782a92f591f453afc23210c959a9a166b86f9755"
 
@@ -9,17 +12,21 @@ vk._auth_token()
 
 while True:
     try:
-        messages = vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unread", "random_id": 123456})
+        messages = vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unread", "random_id": get_random_id()})
         if messages["count"] >= 1:
             id = messages["items"][0]["last_message"]["from_id"]
             body = messages["items"][0]["last_message"]["text"]
             if body.lower() == "привет":
-                vk.method("messages.send", {"peer_id": id, "message": "Привет!", "random_id": 123456})
-            elif body.lower() == "Пока":
-                vk.method("messages.send", {"peer_id": id, "message": "Пока(", "random_id": 123456})
-            elif body.lower() == "Погода":
-                vk.method("messages.send", {"peer_id": id, "message": "Пока не реализовано", "random_id": 123456})
+                print("Ответил на сообщение")
+                vk.method("messages.send", {"peer_id": id, "message": "Привет!", "random_id": get_random_id()})
+            elif body.lower() == "пока":
+                print("Ответил на сообщение")
+                vk.method("messages.send", {"peer_id": id, "message": "Пока(", "random_id": get_random_id()})
+            elif body.lower() == "погода":
+                print("Ответил на сообщение")
+                vk.method("messages.send", {"peer_id": id, "message": "Пока не реализовано", "random_id": get_random_id()})
             else:
-                vk.method("messages.send", {"peer_id": id, "message": "Не понял тебя", "random_id": 123456})
+                print("Ответил на сообщение")
+                vk.method("messages.send", {"peer_id": id, "message": "Не понял тебя", "random_id": get_random_id()})
     except Exception as E:
         time.sleep(1)
